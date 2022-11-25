@@ -3,19 +3,18 @@ use solang_parser;
 fn main() {
     let file_contents = r#"
     
-        pragma solidity ^0.8.16;
+contract Contract0 {
+    function addressInternalBalance(){
+        uint256 bal = address(this).balance;
+        bal++;
+    }
 
-        contract SimpleStorage {
-            uint x;
+    function addressExternalBalance(address addr) public {
+        uint256 bal = address(addr).balance;
+        bal++;
+    }
+}
 
-            function set(uint newValue) {
-                x = newValue;
-            }
-            
-            function get() returns (uint) {
-                return x;
-            }
-        }
     "#;
 
     let source_unit = solang_parser::parse(file_contents, 0).unwrap().0;
